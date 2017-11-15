@@ -1,0 +1,5 @@
+.editableTable { border:solid 1px; width:100% } 
+.editableTable td { border:solid 1px; } 
+/*.editableTable .cellEditing { padding: 2; }*/
+.editableTable .cellEditing input[type=text]{ width:100%; border:0; }
+

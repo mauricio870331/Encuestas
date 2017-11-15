@@ -1,0 +1,51 @@
+.notificaciones-info{
+    background: #075db2;
+    color: #fff;
+    padding: 10px;
+    /*margin-right: 50px;*/
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+.notificaciones-info:hover{
+    background: #7cbecc;
+    color: #eee;
+}
+
+.notificaciones-error{
+    background: #bd0000;
+    color: #fff;
+    padding: 10px;
+    /*margin-right: 50px;*/
+    font-weight: bold;
+    font-family: sans-serif;
+}
+.notificaciones-error:hover{
+    background: #e43633;  
+}
+
+.notificaciones-success{
+    background: #098759;
+    color: #fff;
+    padding: 10px;
+    /*margin-right: 50px;*/
+    font-weight: bold;
+    font-family: sans-serif;
+}
+.notificaciones-success:hover{
+    background: #467507;
+}
+
+#notificaciones{
+    display: block;
+    position: fixed;
+    top: 40px;
+    right: 10px;
+    z-index: 9999;
+}
+.notificacion{
+    float: right;
+    clear: both;
+    border: 3px solid transparent;
+    cursor: pointer;
+}
