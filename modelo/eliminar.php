@@ -5,7 +5,6 @@ include './funciones_mysql.php';
 $conexion = new Conexion("sondeo");
 
 try {
-
     $id = $_POST['id'];
     $opcion = $_POST['opc'];
     $query = "";
@@ -28,11 +27,15 @@ try {
 
             break;
     }
+    
     $queries = explode(";", $query);
     foreach ($queries as $value) {
         $conexion->execQuery($value);
     }
+    
     echo 1;
 } catch (Exception $ex) {
     echo $ex->getMessage();
 }
+
+?>

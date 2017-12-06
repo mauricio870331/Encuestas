@@ -23,6 +23,7 @@ $query = "SELECT p.id_pregunta, p.descripcion pregunta ,r.id_respuesta, r.descri
         . " WHERE p.id_encuesta = " . $_GET['id'] . " and r.id_encuesta = p.id_encuesta";
 
 $consultaG = $conexion->findAll2($query);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -30,22 +31,13 @@ $consultaG = $conexion->findAll2($query);
         <meta charset="UTF-8">
         <title>Editar Encuesta</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-        <!-- Bootstrap 3.3.2 -->
-        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <!-- Font Awesome Icons -->
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-        <!-- Ionicons -->
-        <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />
-        <!-- Theme style -->
+ 
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />       
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />    
+        <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />      
         <link href="dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
-        <!-- AdminLTE Skins. Choose a skin from the css/skins 
-             folder instead of downloading all of them to reduce the load. -->
-        <link href="dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
-
-
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
+         <link href="dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" /> 
+         <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
@@ -54,13 +46,10 @@ $consultaG = $conexion->findAll2($query);
     </head>
     <body class="skin-blue">     
         <div class="wrapper">
-
             <?php include './header.php'; ?>
-
             <!-- ZONA DEL MENÙ-->
             <?php include 'menu.php'; ?>
             <!-- ZONA DEL MENÙ-->
-
             <div class="content-wrapper">             
                 <section class="content-header">
                     <h1>
@@ -103,10 +92,8 @@ $consultaG = $conexion->findAll2($query);
                                         <?php
                                     }
                                     ?>
-
                                 </table>
                                 <!--FIN  TABLA-->
-
                             </div>
                         </div>
                         <div class="box">
@@ -125,9 +112,8 @@ $consultaG = $conexion->findAll2($query);
                                         <?php
                                     }
                                     ?>
-
                                 </select>
-                                <input  type="text" name="respuesta" size="45px" id="respuesta2"> 
+                                <input  type="text" name="respuesta" size="45px" id="respuesta2" placeholder="Digite 'Otro' si desea una respuesta personalizada"> 
                                 <a><i class="fa fa-plus" aria-hidden="true"value="+" id="new_respuesta2" style="font-size:18px;cursor: pointer " data-toggle="tooltip"title="Agregar Respuesta" onclick="agregar(<?php echo $_GET['id'] ?>)"></i></a>   
 
                                 <!-- TABLA-->
@@ -154,7 +140,6 @@ $consultaG = $conexion->findAll2($query);
                                 <a href="listado_encuestas.php">
                                     <input  type="button" name="regresar" id="regresar" value="Regresar" class="btn btn-block btn-primary" style="width: 8%"> 
                                 </a>
-
                                 <input type="hidden" id="launchModal" class="btn btn-primary" data-toggle="modal" data-target="#myModal" />
                             </div>
                         </div>
@@ -181,9 +166,7 @@ $consultaG = $conexion->findAll2($query);
                     </div>
                 </div>
             </div>
-
         </div>
-
         <!-- jQuery 2.1.3 -->
         <script src="plugins/jQuery/jQuery-2.1.3.min.js"></script>
         <!-- Bootstrap 3.3.2 JS -->
@@ -195,102 +178,94 @@ $consultaG = $conexion->findAll2($query);
         <!-- AdminLTE App -->
         <script src="dist/js/app.min.js" type="text/javascript"></script>
         <script src="js/notificaciones.js"></script>
-        <script src="dist/js/funciones.js" type="text/javascript"></script>        
-
-
+        <script src="dist/js/funciones.js" type="text/javascript"></script>
         <script>
-                                                $(document).ready(function () {
+            
+    $(document).ready(function () {
 
-                                                    var mensaje = getParameterByName('mensaje');
+        var mensaje = getParameterByName('mensaje');
 
-                                                    if (mensaje == 'errorEncuesta') {
-                                                        showAlert("Error al guardar la encuesta", "error", 250, 60);
+        if (mensaje == 'errorEncuesta') {
+            showAlert("Error al guardar la encuesta", "error", 250, 60);
 
-                                                    }
+       }
 
-                                                    if (mensaje == 'editar') {
-                                                        showAlert("Respuesta Editada con éxito", "success", 250, 60);
+        if (mensaje == 'editar') {
+            showAlert("Respuesta Editada con éxito", "success", 250, 60);
 
-                                                    }
+        }
 
-                                                    if (mensaje == 'errorEditar') {
-                                                        showAlert("Error al editar la respuesta", "error", 250, 60);
+        if (mensaje == 'errorEditar') {
+            showAlert("Error al editar la respuesta", "error", 250, 60);
 
-                                                    }
+        }
 
-                                                    if (mensaje == 'eliminarRespuesta') {
-                                                        showAlert("Respuesta Eliminada", "success", 250, 60);
+       if (mensaje == 'eliminarRespuesta') {
+            showAlert("Respuesta Eliminada", "success", 250, 60);
 
-                                                    }
+       }
 
-                                                    if (mensaje == 'agregarRespuesta') {
-                                                        showAlert("Respuesta Añadida", "success", 250, 60);
-                                                    }
+        if (mensaje == 'agregarRespuesta') {
+            showAlert("Respuesta Añadida", "success", 250, 60);
+        }
 
-                                                    if (mensaje == 'errorAgregar') {
-                                                        showAlert("Error al agregar la respuesta", "error", 250, 60);
-                                                    }
+        if (mensaje == 'errorAgregar') {
+            showAlert("Error al agregar la respuesta", "error", 250, 60);
+        }
 
-                                                    if (mensaje == 'agregarPregunta') {
-                                                        showAlert("Pregunta Añadida", "success", 250, 60);
-                                                    }
+        if (mensaje == 'agregarPregunta') {
+            showAlert("Pregunta Añadida", "success", 250, 60);
+        }
 
-                                                    if (mensaje == 'errorPregunta') {
-                                                        showAlert("Error al agregar la pregunta", "error", 250, 60);
-                                                    }
+       if (mensaje == 'errorPregunta') {
+            showAlert("Error al agregar la pregunta", "error", 250, 60);
+        }
 
-                                                    if (mensaje == 'eliminarPregunta') {
-                                                        showAlert("Pregunta Eliminada", "success", 250, 60);
-                                                    }
+        if (mensaje == 'eliminarPregunta') {
+            showAlert("Pregunta Eliminada", "success", 250, 60);
+        }
 
-                                                    if (mensaje == 'errorEliminarPregunta') {
-                                                        showAlert("Error al eliminar la pregunta", "error", 250, 60);
-                                                    }
+        if (mensaje == 'errorEliminarPregunta') {
+            showAlert("Error al eliminar la pregunta", "error", 250, 60);
+        }                                           
                                                     
-                                                    
-                                                     if (mensaje == 'edtarTitulo') {
-                                                        showAlert("Titulo Editado", "success", 250, 60);
-                                                    }
+        if (mensaje == 'edtarTitulo') {
+            showAlert("Titulo Editado", "success", 250, 60);
+        }
 
-                                                    if (mensaje == 'errorEditarTitulo') {
-                                                        showAlert("Error al editar el titulo", "error", 250, 60);
-                                                    }
+        if (mensaje == 'errorEditarTitulo') {
+            showAlert("Error al editar el titulo", "error", 250, 60);
+        }
 
+    });
 
-
-
-                                                });
-
-                                                function getParameterByName(name) {
-                                                    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-                                                    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-                                                            results = regex.exec(location.search);
-                                                    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-                                                }
+    function getParameterByName(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
 
 
-                                                function showAlert(mensaje, cssClas, width, height) { //info,error,success
-                                                    if ($("#notificaciones").length == 0) {
-                                                        //creamos el div con id notificaciones
-                                                        var contenedor_notificaciones = $(window.document.createElement('div')).attr("id", "notificaciones");
-                                                        //a continuación la añadimos al body
-                                                        $('body').append(contenedor_notificaciones);
-                                                    }
-                                                    //llamamos al plugin y le pasamos las opciones
-                                                    $.notificaciones({
-                                                        mensaje: mensaje,
-                                                        width: width,
-                                                        cssClass: cssClas, //clase de la notificación
-                                                        timeout: 4000, //milisegundos
-                                                        fadeout: 1000, //tiempo en desaparecer
-                                                        radius: 5, //border-radius
-                                                        height: height
+    function showAlert(mensaje, cssClas, width, height) { //info,error,success
+        if ($("#notificaciones").length == 0) {
+            //creamos el div con id notificaciones
+            var contenedor_notificaciones = $(window.document.createElement('div')).attr("id", "notificaciones");
+            //a continuación la añadimos al body
+            $('body').append(contenedor_notificaciones);
+        }
+        //llamamos al plugin y le pasamos las opciones
+        $.notificaciones({
+            mensaje: mensaje,
+            width: width,
+            cssClass: cssClas, //clase de la notificación
+            timeout: 3000, //milisegundos
+            fadeout: 1000, //tiempo en desaparecer
+            radius: 5, //border-radius
+            height: height
 
-                                                    });
-                                                }
-
-
+        });
+    }
         </script>
-
     </body>
 </html>

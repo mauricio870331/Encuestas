@@ -1,4 +1,4 @@
-<header class="main-header">           
+<header class="main-header"> <!-- MUESTRA EL NOMBRE DEL USUARIO LOGUEADO EN LA CABECERA DE LA PAGINA WEB-->          
     <a href="" class="logo"><b>Admin </b>Encuestas</a>          
     <nav class="navbar navbar-static-top" role="navigation" >            
         <div class="navbar-custom-menu">

@@ -2,9 +2,8 @@
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-
 class Conexion {
-
+    
     private $con;
     private $stm;
     private $rs;
@@ -74,12 +73,9 @@ class Conexion {
         return $this->rs;
     }
 
-    public function findById($tabla, $fieldId, $id) {
-
-        //
+    public function findById($tabla, $fieldId, $id) {     
 
         $this->stm = $this->con->prepare("select * from " . $tabla . " where " . $fieldId . " = ?");
-
         $this->stm->execute(array($id));
         $this->rs = $this->stm->fetchAll(PDO::FETCH_OBJ);
         return $this->rs;
@@ -92,6 +88,15 @@ class Conexion {
 
     public function getUltimoId($campo_id, $tabla = "") {
         $query = "SELECT MAX($campo_id) AS id FROM $tabla";
+        $this->stm = $this->con->prepare($query);
+        $this->stm->execute();
+        $this->rs = $this->stm->fetch(PDO::FETCH_OBJ);
+        return $this->rs->id;
+    }
+    
+    
+    public function getUltimoIdByUser($campo_id, $tabla = "",$documento) {
+        $query = "SELECT MAX($campo_id) AS id FROM $tabla WHERE cedula='".$documento."'";
         $this->stm = $this->con->prepare($query);
         $this->stm->execute();
         $this->rs = $this->stm->fetch(PDO::FETCH_OBJ);

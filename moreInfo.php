@@ -25,6 +25,7 @@ if (verificar_usuario()) {
     for ($i = 0; $i < count($resultado); $i++) {
         $arrayPreguntas[] = array("id_pregunta" => $resultado[$i]->id_pregunta, "descripcion" => $resultado[$i]->descripcion, "id_encuesta" => $resultado[$i]->id_encuesta, "respuestas" => array());
     }
+    
     for ($j = 0; $j < count($array); $j++) {
         for ($k = 0; $k < count($array[$j]); $k++) {
             $arrayRespuestas[] = array("id" => $array[$j][$k]->id, "id_pregunta" => $array[$j][$k]->id_pregunta, "id_respuesta" => $array[$j][$k]->id_respuesta, "desc_respuesta" => $array[$j][$k]->descripcion);
@@ -38,10 +39,6 @@ if (verificar_usuario()) {
             }
         }
     }
-
-//    print_r($array);
-//    print_r($pos_respuesta);
-//    print_r($arrayPreguntas);
 } else {
     //si el usuario no es verificado volvera al formulario de ingreso
     header('Location:login.html');
@@ -61,7 +58,6 @@ if (verificar_usuario()) {
         <link href="dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />     
         <link href="js/notificaciones.css" rel="stylesheet" type="text/css">        
     </head>
-
     <body class="skin-blue">     
         <div class="wrapper">
             <!-- INCLUYE CABECERA DONDE INDICA EL NOMBRE DE USUARIO LOGUEADO-->
@@ -71,20 +67,18 @@ if (verificar_usuario()) {
             <!-- ZONA DEL MENÙ-->
             <div class="content-wrapper">             
                 <section class="content-header">
-
                 </section>             
                 <section class="content">
-
                     <div class="box">                       
                         <div class="box-body">                           
                             <table id="" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th>   <h3>
+                                        <th>   
+                                            <h3>
                                                 Encuesta: <?php echo $_GET['encuesta']; ?>
                                             </h3>  
-                                        </th>     
-
+                                        </th> 
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -109,7 +103,6 @@ if (verificar_usuario()) {
                                                                                     </div><!-- /.box-header -->
                                                                                 </a>
                                                                             </h4>
-
                                                                         </div>
                                                                         <div id="collapse<?php echo $valor["id_pregunta"] ?>" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
                                                                             <!--<div id="collapseOne" class="panel-collapse collapse in">-->
@@ -129,20 +122,15 @@ if (verificar_usuario()) {
                                                                         </div>
                                                                     </div>                                                                                                                                  
                                                                 </div>
-                                                            </div>
-                                                            <!-- /.box-body -->
-                                                        </div>
-                                                        <!-- /.box -->
-                                                    </div>
-                                                    <!-- /.col -->                                                    
-                                                </div>
-                                                <!-- /.row -->                                            
+                                                            </div>                                          
+                                                        </div>                                       
+                                                    </div>                                                                               
+                                                </div>                                                                           
                                             </td>
-
                                         </tr>
-    <?php
-}
-?>
+                                <?php
+                                    }
+                                ?>
                                 </tbody>
                             </table>
                             <a href="listado_encuestas.php">
@@ -162,7 +150,6 @@ if (verificar_usuario()) {
         <script src="dist/js/app.min.js" type="text/javascript"></script>
         <script src="js/notificaciones.js"></script>
         <script src="dist/js/funciones.js" type="text/javascript"></script>
-
         <script>
             $(document).ready(function () {
 

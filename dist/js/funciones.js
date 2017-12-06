@@ -1,25 +1,24 @@
 var DATA = [];
 var DATA2 = [];
+var validarArrayLLenos = [];
 
-$("#enviar").click(function () {//BOTÒN GUARDAR
+$("#enviar").click(function () {//BOTÓN GUARDAR
 
-    if ($('#titulo').val() == "") {
+    if ($('#titulo').val() === "") {
         showAlert("La encuesta debe tener un título", "error", 250, 60);//VALIDA ARRAY PREGUNTAS QUE AL MENOS TENGA 1 VAlOR
         return;
     }
 
-    if (DATA.length == 0) {
+    if (DATA.length === 0) {
         showAlert("Debe ingresar al menos una pregunta", "error", 250, 60);//VALIDA ARRAY PREGUNTAS QUE AL MENOS TENGA 1 VAlOR
         return;
     }
 
 
-    if (DATA2.length == 0) {
+    if (DATA2.length === 0) {
         showAlert("Las preguntas ingresadas no tienen respuesta", "error", 250, 60);//VALIDA ARRAY PREGUNTAS QUE AL MENOS TENGA 1 VAlOR
         return;
     }
-
-
 
     var campos = {'titulo': $('#titulo').val(), 'DATA': JSON.stringify(DATA), 'DATA2': JSON.stringify(DATA2)};
 
@@ -37,7 +36,6 @@ $("#enviar").click(function () {//BOTÒN GUARDAR
                 window.location.href = "vis_administrador.php?mensaje=errorEncuesta";
             }
         }
-
     });
 });
 
@@ -45,7 +43,7 @@ $("#enviar").click(function () {//BOTÒN GUARDAR
 var index = 0;
 $('#new_pregunta').click(function () {
 
-    if ($('#pregunta').val() != "") {
+    if ($('#pregunta').val() !== "") {
         $('#tbl_preguntas').append('<tr id="' + index + '"><td id="td_id">' + $('#pregunta').val() + '</td><td><i class="fa fa-eraser" aria-hidden="true" onClick="removerPregunta(' + index + ',1)" style="color:blue;cursor:pointer"></i></td></tr>');
         index++;
         $('#pregunta').val("");//limpiar caja de texto de pregunta
@@ -55,7 +53,6 @@ $('#new_pregunta').click(function () {
     }
 
 });
-
 
 function removerPregunta(indice, opcion) {
     console.log(indice);
@@ -77,8 +74,6 @@ $('#new_respuesta').click(function () {
     $('#selec_preguntas').val("");
     $(' #respuesta').val("");
     datosTablas(2);
-
-
 });
 
 function datosTablas(opc) {
@@ -130,7 +125,7 @@ function datosTablas(opc) {
 }
 
 function showAlert(mensaje, cssClas, width, height) { //info,error,success
-    if ($("#notificaciones").length == 0) {
+    if ($("#notificaciones").length === 0) {
         //creamos el div con id notificaciones
         var contenedor_notificaciones = $(window.document.createElement('div')).attr("id", "notificaciones");
         //a continuación la añadimos al body
@@ -149,42 +144,49 @@ function showAlert(mensaje, cssClas, width, height) { //info,error,success
     });
 }
 
-
 //EDITAR CAMPOS DE RESPUESTA HACIENDO DOBLE CLIC
 
 $(function () {
 
-    $("td").dblclick(function () {
-        var OriginalContent = $(this).text();
-        if ($(this).attr('id').substr(0, 8) !== "pregunta") {
-            $(this).addClass("cellEditing");
-            $(this).html("<input type='text' value='" + OriginalContent + "' />");
-            $(this).children().first().focus();
-            var id_respuesta = $(this).attr('data-idrespuesta');
-            var id_pregunta = $(this).attr('data-idpregunta');
-            var id_encuesta = $(this).attr('data-idencuesta');
-            $(this).children().first().blur(function (e) {
+    var locacion = window.location.href;
+    var cadena = locacion.toString().split("/");
 
-                var newContent = $(this).val();
-                $(this).parent().text(newContent);
-                $(this).parent().removeClass("cellEditing");
-                var campos2 = {'id_respuesta': id_respuesta, 'id_pregunta': id_pregunta, 'id_encuesta': id_encuesta, 'respuesta': newContent};
 
-                $.ajax({
-                    data: campos2,
-                    url: 'modelo/editar.php',
-                    type: 'post',
-                    success: function (response) {
-                        if (response === 1) {
-                            window.location.href = "editarEncuesta.php?id=" + id_encuesta + "&mensaje=editar";
-                        } else {
-                            window.location.href = "editarEncuesta.php?id=" + id_encuesta + "&mensaje=errorEditar";
+    if (cadena[cadena.length - 1] !== "listado_encuestas.php") {
+
+        $("td").dblclick(function () {
+
+            var OriginalContent = $(this).text();
+            if ($(this).attr('id').substr(0, 8) !== "pregunta") {
+                $(this).addClass("cellEditing");
+                $(this).html("<input type='text' value='" + OriginalContent + "' />");
+                $(this).children().first().focus();
+                var id_respuesta = $(this).attr('data-idrespuesta');
+                var id_pregunta = $(this).attr('data-idpregunta');
+                var id_encuesta = $(this).attr('data-idencuesta');
+
+                $(this).children().first().blur(function (e) {
+                    var newContent = $(this).val();
+                    $(this).parent().text(newContent);
+                    $(this).parent().removeClass("cellEditing");
+                    var campos2 = {'id_respuesta': id_respuesta, 'id_pregunta': id_pregunta, 'id_encuesta': id_encuesta, 'respuesta': newContent};
+
+                    $.ajax({
+                        data: campos2,
+                        url: 'modelo/editar.php',
+                        type: 'post',
+                        success: function (response) {
+                            if (response == 1) {
+                                window.location.href = "editarEncuesta.php?id=" + id_encuesta + "&mensaje=editar";
+                            } else {
+                                window.location.href = "editarEncuesta.php?id=" + id_encuesta + "&mensaje=errorEditar";
+                            }
                         }
-                    }
+                    });
                 });
-            });
-        }
-    });
+            }
+        });
+    }
 });
 
 
@@ -205,10 +207,8 @@ function eliminar(id, id_encuesta, opc) {
                 window.location.href = "editarEncuesta.php?id=" + id_encuesta + "&mensaje=errorEliminar";
             }
         }
-
     });
 }
-
 
 function eliminarEncuesta() {
 
@@ -228,11 +228,11 @@ function eliminarEncuesta() {
                 window.location.href = "listado_encuestas.php?mensaje=errorEliminarEncuesta";
             }
         }
-
     });
 }
 
 var campos2 = {};
+
 function validarPregunta(id_encuesta, id_pregunta) {
     campos2 = {'id_encuesta': id_encuesta, 'id_pregunta': id_pregunta};
     $.ajax({
@@ -248,12 +248,10 @@ function validarPregunta(id_encuesta, id_pregunta) {
             }
         }
     });
-
-
 }
 
-
 function  eliminarPregunta() {
+
     $.ajax({
         data: campos2,
         url: 'modelo/eliminarPregunta.php',
@@ -273,10 +271,10 @@ function  eliminarPregunta() {
 }
 
 function  editarTitulo(id_encuesta) {
-    
-    var campos = {'titulo':$('#titulo2').val(),'id_encuesta':id_encuesta};
+
+    var campos = {'titulo': $('#titulo2').val(), 'id_encuesta': id_encuesta};
+
     $.ajax({
-        
         data: campos,
         url: 'modelo/editarTitulo.php',
         type: 'post',
@@ -286,17 +284,13 @@ function  editarTitulo(id_encuesta) {
                 window.location.href = "editarEncuesta.php?id=" + id_encuesta + "&mensaje=edtarTitulo";
             } else {
                 window.location.href = "editarEncuesta.php?id=" + id_encuesta + "&mensaje=errorEditarTitulo";
-            }           
+            }
         }
-
     });
-
 }
 
 function agregar(id_encuesta) {
     var campos2 = {'pregunta': $('#selec_preguntas2').val(), 'respuesta': $('#respuesta2').val(), 'id_encuesta': id_encuesta};
-
-
 
     $.ajax({
 
@@ -315,6 +309,7 @@ function agregar(id_encuesta) {
 }
 
 function agregarPregunta(id_encuesta) {
+
     var campos2 = {'pregunta': $('#pregunta2').val(), 'id_encuesta': id_encuesta};
 
     $.ajax({
@@ -335,6 +330,154 @@ function agregarPregunta(id_encuesta) {
 }
 
 function setId(id_encuesta) {
-    
+
     $('#id_encuestav').val(id_encuesta);
+
+}
+
+function validarTA() {
+    $(".c").attr("aria-checked", "false");
+    $(".c").removeClass("checked");
+}
+
+//function validarCheck() {   
+//    $("otro_1").prop('disabled', true);
+//}
+
+
+
+function addPreguntaRespuesta(id_pregunta, id_pregunta_respuesta, opcion, respuestaTA) {
+
+    var objeto = {"id_pregunta": id_pregunta, "id_pregunta_respuesta": id_pregunta_respuesta, "opcion": opcion, "respuestaTA": respuestaTA};
+    validarArrayLLenos.push(objeto);
+
+}
+
+$('#btn_enviar').click(function () {
+    var validarArrayVacios = [];
+    var validarArrayLLenos = [];
+    var countErrorres = 0;
+    var countErrorres2 = 0;
+
+    var capturaId = {"nombre": "nombre", "documento": "documento", "email": "email"};
+    for (var elemento in capturaId) {
+        if ($("#" + elemento).val() === "") {
+            $("#" + elemento).css("border", "1px solid red");
+            countErrorres++;
+        } else {
+            $("#" + elemento).css("border", "");
+        }
+    }
+
+    var form = $("#form_encuesta");
+    form.find(':input').each(function () {
+        var elemento = this;
+        var attrib = (elemento.checked === false) ? "" : elemento.checked;
+        var res = elemento.id.split("_");
+        var id_pregunta_respuesta = elemento.getAttribute('data-idrespuesta');
+        var opcion = elemento.getAttribute('data-opcion');
+        if (elemento.type === "textarea") {
+            attrib = elemento.value;
+        }
+        if (res.length > 1) {
+            res = res[1];
+        } else {
+            res = res[0];
+        }
+
+        var val = {"id_pregunta": res, "respuestaTA": attrib, "id_pregunta_respuesta": id_pregunta_respuesta, "opcion": opcion};
+        if (elemento.id !== "nombre" && elemento.id !== "documento" && elemento.id !== "email" && elemento.id !== "btn_enviar") {
+            validarArrayVacios.push(val);
+        }
+
+    });
+
+    for (var itemA in validarArrayVacios) {
+        var val = {"id_pregunta": validarArrayVacios[itemA].id_pregunta, "id_pregunta_respuesta": validarArrayVacios[itemA].id_pregunta_respuesta, "respuestaTA": validarArrayVacios[itemA].respuestaTA, "opcion": validarArrayVacios[itemA].opcion};
+        if (validarArrayVacios[itemA].respuestaTA !== "") {
+            validarArrayLLenos.push(val);
+        }
+    }
+
+    if (countErrorres > 0) {//NOTIFICACIÓN DE CAMPOS REQUERIDOS
+        $.notify("Los campos deben ser obligatorios", "info");
+        return;
+    }
+
+    validarArrayVacios.forEach(function (elemento, indice) {//NOTIFICACIÓN DE CAMPO RESPUESTA REQUERIDO
+        if (findElementInArray(elemento.id_pregunta, validarArrayLLenos)) {
+            $("#pregunta_" + elemento.id_pregunta).css("border", "");
+        } else {
+            $("#pregunta_" + elemento.id_pregunta).css("border", "1px solid red");
+            countErrorres2++;
+
+        }
+    });
+
+    function findElementInArray(id, myArr2) {
+        var result = false;
+        myArr2.forEach(function (elemento, indice) {
+            if (elemento.id_pregunta === id) {
+                result = true;
+            }
+        });
+        return result;
+    }
+
+    if (countErrorres2 > 0) {//NOTIFICACIÓN DE RADIO BUTTONS SELECCIONADOS
+        $.notify("Debe seleccionar una respuesta", "info");
+        return;
+    }
+    
+    if (!validaEmail()) {//VALIDAR CAMPO EMAIL
+         $.notify("Ingrese un correo valido", "info");
+        return;
+    }
+
+    var objeto = {"nombre": $('#nombre').val(), "email": $('#email').val(), "documento": $('#documento').val(), "respuestas": JSON.stringify(validarArrayLLenos)};
+    $.ajax({
+        data: objeto,
+        url: 'modelo/guardarInfoUsuario.php',
+        type: 'post',
+        success: function (response) {
+            console.log(response);
+
+            if (response === '1') {
+                window.location.href = "redireccionPagina.html?mensaje=registroEncuestaUsu";
+
+            } else {
+                window.location.href = "vistaUsuario.php?mensaje=errorRegistroEncuestaUsu";
+            }
+        }
+
+    });
+
+});
+
+function removeDuplicates(originalArray, prop) {
+    var newArray = [];
+    var lookupObject = {};
+
+    for (var i in originalArray) {
+        lookupObject[originalArray[i][prop]] = originalArray[i];
+    }
+
+    for (i in lookupObject) {
+        newArray.push(lookupObject[i]);
+    }
+    return newArray;
+}
+
+function clearoptions(id) {
+    $('input[name=pregunta' + id + ']').attr('checked', false);
+}
+
+function validaEmail() {
+    var expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+    if (expr.test($('#email').val().trim())) {
+        return true;
+    } else {
+        return false;        
+    }
 }

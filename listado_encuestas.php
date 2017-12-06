@@ -26,7 +26,6 @@ if (verificar_usuario()) {
         <link href="dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />     
         <link href="js/notificaciones.css" rel="stylesheet" type="text/css">        
     </head>
-
     <body class="skin-blue">     
         <div class="wrapper">
             <!-- INCLUYE CABECERA DONDE INDICA EL NOMBRE DE USUARIO LOGUEADO-->
@@ -41,15 +40,15 @@ if (verificar_usuario()) {
                     </h1>         
                 </section>             
                 <section class="content">
-
                     <div class="box">                       
                         <div class="box-body">
-                            <table id="example1" class="table table-bordered table-striped">
+                            <table id="example2" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th>Título Encuesta</th>     
                                         <th>Fecha Creación</th>
-                                        <th>Creada Por</th>                                      
+                                        <th>Creada Por</th>
+                                        <th>Link Encuesta</th>
                                         <th>Acción</th>
                                     </tr>
                                 </thead>
@@ -66,19 +65,20 @@ if (verificar_usuario()) {
                                             <td><?php echo $valor->titulo; ?></td>
                                             <td><?php echo $valor->fecha_creacion; ?></td>
                                             <td><?php echo $valor->creada_por; ?></td>
-                                            <td>
+                                            <td><?php echo $valor->link; ?></td>
+                                            <td id='nada'>
                                                 <a href="moreInfo.php?id=<?php echo $valor->id_encuesta; ?>&encuesta=<?php echo $valor->titulo; ?>"><i id="moreInfo" data-toggle="tooltip" title="Mas Informacion" class="fa fa-eye" aria-hidden="true"></i></a>&numsp;&numsp;
                                                 <a href="editarEncuesta.php?id=<?php echo $valor->id_encuesta; ?>"><i class="fa fa-pencil" aria-hidden="true" data-toggle="tooltip" title="Editar Encuesta"></i></a>&numsp;&numsp;                       
-                                                <a data-toggle="tooltip" title="Eliminar Encuesta"><i class="fa fa-eraser" aria-hidden="true" style="cursor: pointer" data-toggle="modal" data-target="#myModal" onclick="setId(<?php echo $valor->id_encuesta; ?>)"></i></a>
+                                                <a data-toggle="tooltip" title="Eliminar Encuesta"><i class="fa fa-eraser" aria-hidden="true" style="cursor: pointer" data-toggle="modal" data-target="#myModal" onclick="setId(<?php echo $valor->id_encuesta; ?>)"></i></a>&numsp;&numsp; 
+                                                <a href="visEstadistica.php?id=<?php echo $valor->id_encuesta; ?>"><i class="fa fa-line-chart" aria-hidden="true" data-toggle="tooltip" title="Ver Resultados"></i></a>&numsp;&numsp;     
                                             </td>
                                         </tr>
                                         <?php
                                     }
                                     ?>
                                 </tbody>
-                            </table>                        
-                        </div>
-                        
+                            </table>                     
+                        </div>                        
                         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -112,70 +112,60 @@ if (verificar_usuario()) {
         <script src="dist/js/app.min.js" type="text/javascript"></script>
         <script src="js/notificaciones.js"></script>
         <script src="dist/js/funciones.js" type="text/javascript"></script>
-
         <script>
-                                $(document).ready(function () {
+   $(document).ready(function () {
 
+    $("#example2").dataTable();
+    
+        var mensaje = getParameterByName('mensaje');
+            
+            if (mensaje == 'registro') {
+                showAlert("Encuesta Guardada con èxito", "success", 250, 60);
+           }
 
-                                    $("#example1").dataTable();
+           if (mensaje == 'errorEncuesta') {
+                showAlert("Error al guardar la encuesta", "error", 250, 60);
+            }
 
-
-
-                                    var mensaje = getParameterByName('mensaje');
-                                    if (mensaje == 'registro') {
-                                        showAlert("Encuesta Guardada con èxito", "success", 250, 60);
-                                    }
-
-
-                                    if (mensaje == 'errorEncuesta') {
-                                        showAlert("Error al guardar la encuesta", "error", 250, 60);
-                                    }
-
-                                    if (mensaje == 'bienvenido') {
-                                        showAlert("Bienvenido: <?php echo $nombre_usuario; ?>", "success", 250, 60);
-                                    }
+            if (mensaje == 'bienvenido') {
+                showAlert("Bienvenido: <?php echo $nombre_usuario; ?>", "success", 250, 60);
+            }
                                     
-                                    if (mensaje == 'eliminarEncuesta') {
-                                        showAlert("Encuesta Eliminada", "success", 250, 60);
-                                    }
+            if (mensaje == 'eliminarEncuesta') {
+                showAlert("Encuesta Eliminada", "success", 250, 60);
+            }
 
-                                    if (mensaje == 'errorEliminarEncuesta') {
-                                        showAlert("Error al eliminar la encuesta", "error", 250, 60);
-                                    }
-                            
-                                    
-                                    
+            if (mensaje == 'errorEliminarEncuesta') {
+                showAlert("Error al eliminar la encuesta", "error", 250, 60);
+            }                         
 
-                                });
-                                function getParameterByName(name) {
-                                    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-                                    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-                                            results = regex.exec(location.search);
-                                    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-                                }
+    });
+        function getParameterByName(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+            results = regex.exec(location.search);
+            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+        
+        function showAlert(mensaje, cssClas, width, height) { //info,error,success
+            if ($("#notificaciones").length == 0) {
+            //creamos el div con id notificaciones
+                var contenedor_notificaciones = $(window.document.createElement('div')).attr("id", "notificaciones");
+            //a continuación la añadimos al body
+                $('body').append(contenedor_notificaciones);
+            }
+            //llamamos al plugin y le pasamos las opciones
+            $.notificaciones({
+                mensaje: mensaje,
+                width: width,
+                cssClass: cssClas, //clase de la notificación
+                timeout: 3000, //milisegundos
+                fadeout: 1000, //tiempo en desaparecer
+                radius: 5, //border-radius
+                height: height
 
-
-                                function showAlert(mensaje, cssClas, width, height) { //info,error,success
-                                    if ($("#notificaciones").length == 0) {
-                                        //creamos el div con id notificaciones
-                                        var contenedor_notificaciones = $(window.document.createElement('div')).attr("id", "notificaciones");
-                                        //a continuación la añadimos al body
-                                        $('body').append(contenedor_notificaciones);
-                                    }
-                                    //llamamos al plugin y le pasamos las opciones
-                                    $.notificaciones({
-                                        mensaje: mensaje,
-                                        width: width,
-                                        cssClass: cssClas, //clase de la notificación
-                                        timeout: 4000, //milisegundos
-                                        fadeout: 1000, //tiempo en desaparecer
-                                        radius: 5, //border-radius
-                                        height: height
-
-                                    });
-                                }
-
-
+             });
+        }
         </script>
     </body>
 </html>

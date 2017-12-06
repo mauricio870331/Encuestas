@@ -19,22 +19,12 @@ if (verificar_usuario()) {
     <head>
         <meta charset="UTF-8">
         <title>Crear Encuesta</title>
-        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-        <!-- Bootstrap 3.3.2 -->
-        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <!-- Font Awesome Icons -->
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-        <!-- Ionicons -->
-        <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />
-        <!-- Theme style -->
-        <link href="dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
-        <!-- AdminLTE Skins. Choose a skin from the css/skins 
-             folder instead of downloading all of them to reduce the load. -->
-        <link href="dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
-
-
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>  
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />      
+        <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />      
+        <link href="dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" /> 
+        <link href="dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />  
         <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
@@ -42,14 +32,11 @@ if (verificar_usuario()) {
         <link href="js/notificaciones.css" rel="stylesheet" type="text/css">
     </head>
     <body class="skin-blue">     
-        <div class="wrapper">
-            
-            <?php include './header.php'; ?>
-            
+        <div class="wrapper">            
+            <?php include './header.php'; ?>            
             <!-- ZONA DEL MENÙ-->
             <?php include 'menu.php'; ?>
             <!-- ZONA DEL MENÙ-->
-
             <div class="content-wrapper">             
                 <section class="content-header">
                     <h1>
@@ -72,8 +59,7 @@ if (verificar_usuario()) {
                             </div>
                             <div class="box-body">                
                                 <input type="text" name="titulo" id="pregunta" size="55px">
-                                <a><i class="fa fa-plus" aria-hidden="true"value="+" id="new_pregunta" style="font-size:18px;cursor: pointer " data-toggle="tooltip"title="Agregar Pregunta"></i></a>  
-                        
+                                <a><i class="fa fa-plus" aria-hidden="true"value="+" id="new_pregunta" style="font-size:18px;cursor: pointer " data-toggle="tooltip"title="Agregar Pregunta"></i></a>              
 
                                 <!-- TABLA-->
                                 <table class="table table-bordered" id="tbl_preguntas" style="margin-top: 15px">
@@ -82,8 +68,7 @@ if (verificar_usuario()) {
                                         <th style="width: 40px">Acción</th>
                                     </tr>
                                 </table>
-                                <!--FIN  TABLA-->
-
+                                <!--FIN  TABLA-->                                
                             </div>
                         </div>
                         <div class="box">
@@ -94,12 +79,12 @@ if (verificar_usuario()) {
                                 <select id="selec_preguntas" style="width: 18%; height: 22px">
                                     <option value="" >seleccione Pregunta</option>
                                 </select>
-                                <input  type="text" name="respuesta" size="45px" id="respuesta"> 
+                                <input  type="text" name="respuesta" size="45px" id="respuesta" placeholder="Digite 'Otro' si desea una respuesta personalizada"> 
                                 <a><i class="fa fa-plus" aria-hidden="true"value="+" id="new_respuesta" style="font-size:18px;cursor: pointer " data-toggle="tooltip"title="Agregar Respuesta"></i></a>   
                                
                                 <!-- TABLA-->
                                 <table class="table table-bordered" id="tbl_respuestas" style="margin-top: 15px">
-                                    <tr>    
+                                    <tr>
                                         <th>Pregunta</th>    
                                         <th>Respuesta</th>                                                                                  
                                         <th style="width: 40px">Acción</th>
@@ -113,21 +98,16 @@ if (verificar_usuario()) {
                 </section>
             </div>
         </div>
-        <!-- jQuery 2.1.3 -->
-        <script src="plugins/jQuery/jQuery-2.1.3.min.js"></script>
-        <!-- Bootstrap 3.3.2 JS -->
-        <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-        <!-- SlimScroll -->
-        <script src="plugins/slimScroll/jquery.slimScroll.min.js" type="text/javascript"></script>
-        <!-- FastClick -->
-        <script src='plugins/fastclick/fastclick.min.js'></script>
-        <!-- AdminLTE App -->
+    
+        <script src="plugins/jQuery/jQuery-2.1.3.min.js"></script>       
+        <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>     
+        <script src="plugins/slimScroll/jquery.slimScroll.min.js" type="text/javascript"></script>   
+        <script src='plugins/fastclick/fastclick.min.js'></script>       
         <script src="dist/js/app.min.js" type="text/javascript"></script>
         <script src="js/notificaciones.js"></script>
-        <script src="dist/js/funciones.js" type="text/javascript"></script>        
-        
+        <script src="dist/js/funciones.js" type="text/javascript"></script>     
 
-<script>
+        <script>
     $(document).ready(function () {
 
        var mensaje = getParameterByName('mensaje');
@@ -175,9 +155,7 @@ if (verificar_usuario()) {
          height: height
          
         });
-    }  
-    
-
+    }
 </script>
 </body>
 </html>

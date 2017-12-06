@@ -12,6 +12,7 @@ $data2 = json_decode(@$_POST['DATA2']); //TRAE LAS PREGUNTAS CON LAS RESPUESTAS
 
 
 try {
+    
     $conexion = new Conexion("sondeo");
 
     $sql = "INSERT INTO encuesta (titulo,fecha_creacion,creada_por) VALUES('$titulo','$fecha','$nombre_usuario')";
@@ -24,8 +25,7 @@ try {
         $sql = "INSERT INTO pregunta(descripcion,id_encuesta) VALUES('$valor->id',$idEncuesta)";
         $conexion->execQuery($sql);
     }
-
-    //--------- Guardar RESPUESTAS ---------------------
+    //--------- Guardar RESPUESTAS ---------------------//
 
     foreach ($data2 as $valor2) {
         $consulta = "SELECT id_pregunta FROM pregunta WHERE descripcion = '$valor2->pregunta'";
@@ -36,8 +36,15 @@ try {
         $sql3 = "INSERT INTO pregunta_respuesta(id_pregunta,id_respuesta,id_encuesta) VALUES(" . $resultado_pregunta[0]->id_pregunta . ",$id_respuesta,$idEncuesta)";
 
         $conexion->execQuery($sql3);
+        
     }
+    
+    $actualiza = "UPDATE encuesta set link = '".$_SERVER['HTTP_HOST']."/encuesta/vistaUsuario.php?id=".$idEncuesta."' WHERE id_encuesta=".$idEncuesta."";
+    $conexion->execQuery($actualiza);
+   
     echo 1;
 } catch (Exception $ex) {
     echo $ex->getMessage();
 }
+
+?>
