@@ -18,6 +18,7 @@ if (verificar_usuario()) {
 <html>
     <head>
         <meta charset="UTF-8">
+        <link rel="icon" type="image/png" href="dist/img/favicon.png" />
         <title>Crear Encuesta</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>  
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    

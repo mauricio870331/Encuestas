@@ -5,3 +5,5 @@
 /node_modules/
 TODO
 *.zip
+/exporting-server/java/highcharts-export/highcharts-export-convert/target/
+/exporting-server/java/highcharts-export/highcharts-export-web/target/

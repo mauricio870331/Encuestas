@@ -6,6 +6,8 @@ include 'modelo/funciones_mysql.php';
 $conexion = new Conexion("sondeo");
 
 //ARRAY CARGADO CON PREGUNTAS
+//print_r($_GET['id']);
+//die();
 $resultado = $conexion->findAll2("SELECT * FROM pregunta WHERE id_encuesta =" . @$_GET['id']);
 $consulta = "SELECT titulo FROM encuesta WHERE id_encuesta=".$_GET['id'];
 $resultado2 = $conexion->findAll2($consulta);
@@ -42,6 +44,7 @@ for ($k = 0; $k < count($arrayPreguntas); $k++) {
 <html>
     <head>
         <meta charset="UTF-8">
+        <link rel="icon" type="image/png" href="dist/img/favicon.png" />
         <title>Vista Usuario</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>      
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />       
@@ -53,25 +56,16 @@ for ($k = 0; $k < count($arrayPreguntas); $k++) {
         <link href="js/notificaciones.css" rel="stylesheet" type="text/css">      
         <link href="plugins/iCheck/all.css" rel="stylesheet" type="text/css" />
     </head>
-    <body class="skin-blue">     
-        <div class="wrapper">         
-            <header class="main-header">           
-                <a  class="logo"><b>Admin </b>Encuestas</a>          
-                <nav class="navbar navbar-static-top" role="navigation" >            
-                    <div class="navbar-custom-menu">
-                        <ul class="nav navbar-nav">                    
-                        </ul>
-                    </div>
-                </nav>
-            </header>
-            <div class="content-wrapper">             
+    <body class="skin-green">     
+        <div class="wrapper">        
+            <div class="content-wrapper">           
                 <section class="content-header">
                     <?php foreach ($resultado2 as $valor2) { ?>
-                    <h1>
+                    <h1 style="text-align: center !important">
                         Formulario Encuesta - <?php echo $valor2->titulo;?>
                     </h1>       
-                    <?php }?>
-                </section>             
+                    <?php }?>                    
+                </section>                
                 <section class="content">
                     <div class="box" style = "width: 60%;margin-left: 20%;">                       
                         <div class="box-body">
@@ -84,6 +78,10 @@ for ($k = 0; $k < count($arrayPreguntas); $k++) {
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Documento</label>
                                         <input type="text" class="form-control"  placeholder="Número de Documento" id="documento" name="documento">
+                                    </div>
+                                     <div class="form-group">
+                                        <label for="exampleInputEmail1">Teléfono</label>
+                                        <input type="text" class="form-control"  placeholder="Número de teléfono o celular" id="telefono" name="telefono">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Email</label>
@@ -125,7 +123,7 @@ for ($k = 0; $k < count($arrayPreguntas); $k++) {
                                     <!-- for fin -->
                                 </div>
                                 <div class="box-footer">
-                                    <input type="button" class="btn btn-primary" value="Enviar" id="btn_enviar">
+                                    <input type="button" data-id="<?php echo $_GET['id'] ?>" class="btn btn-primary" value="Enviar" id="btn_enviar">
                                 </div>
                             </form>         
                         </div>

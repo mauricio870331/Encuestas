@@ -48,7 +48,8 @@ if (verificar_usuario()) {
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Listar Encuestas</title>
+        <link rel="icon" type="image/png" href="dist/img/favicon.png" />
+        <title>Listar Encuestas</title>        
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>      
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />       
         <link href="plugins/maxcdn.css" rel="stylesheet" type="text/css" />     

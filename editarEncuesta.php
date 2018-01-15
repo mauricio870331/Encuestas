@@ -5,11 +5,8 @@ date_default_timezone_set('America/Bogota');
 $hora_ingreso = date("H:i:s");
 //uso de la funcion verificar_usuario()
 if (verificar_usuario()) {
-    //si el usuario es verificado puede acceder al contenido permitido a el
-    //echo "$_SESSION[usuario]<br/>";
-    $nombre_usuario = $_SESSION['usuario'];
-
-    //print "Desconectarse <a href='salir.php'/>aqui</a>";
+    //si el usuario es verificado puede acceder al contenido permitido a el   
+    $nombre_usuario = $_SESSION['usuario'];   
 } else {
     //si el usuario no es verificado volvera al formulario de ingreso
     header('Location:login.html');
@@ -23,15 +20,15 @@ $query = "SELECT p.id_pregunta, p.descripcion pregunta ,r.id_respuesta, r.descri
         . " WHERE p.id_encuesta = " . $_GET['id'] . " and r.id_encuesta = p.id_encuesta";
 
 $consultaG = $conexion->findAll2($query);
-
 ?>
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
+        <link rel="icon" type="image/png" href="dist/img/favicon.png" />
         <title>Editar Encuesta</title>
-        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
- 
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'> 
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />       
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />    
         <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />      
@@ -86,7 +83,7 @@ $consultaG = $conexion->findAll2($query);
                                     foreach ($resultado_pre as $valor) {
                                         ?>
                                         <tr>
-                                            <td><?php echo $valor->descripcion; ?></td>
+                                            <td id="pregunta" data-id_pregunta="<?php echo $valor->id_pregunta; ?>" data-option="opc1" data-idencuesta = "<?php echo $_GET['id']; ?>"><?php echo $valor->descripcion; ?></td>
                                             <td><a><i class="fa fa-eraser" aria-hidden="true" data-toggle="tooltip" title="Eliminar Pregunta" style="cursor: pointer" onclick="validarPregunta(<?php echo $_GET['id'] ?>,<?php echo $valor->id_pregunta ?>)"></i></a></td>
                                         </tr>                                    
                                         <?php
@@ -126,19 +123,20 @@ $consultaG = $conexion->findAll2($query);
                                     </tr>                                  
                                     <?php
                                     foreach ($consultaG as $valor3) {
-                                        ?>  
+                                        ?>
                                         <tr>                                 
                                             <td id="pregunta<?php echo $valor3->id_pregunta ?>"><?php echo $valor3->pregunta; ?></td>                               
-                                            <td id="respuesta<?php echo $valor3->id_pregunta ?>" data-idencuesta = "<?php echo $_GET['id']; ?>"data-idrespuesta="<?php echo $valor3->id_respuesta ?>" data-idpregunta="<?php echo $valor3->id_pregunta ?>"><?php echo $valor3->respuesta; ?></td>
+                                            <td id="respuesta<?php echo $valor3->id_pregunta ?>" data-option="opc2" data-idencuesta = "<?php echo $_GET['id']; ?>" data-idrespuesta="<?php echo $valor3->id_respuesta ?>" data-idpregunta="<?php echo $valor3->id_pregunta ?>"> <?php echo $valor3->respuesta;?> </td>
                                             <td><a><i class="fa fa-eraser" aria-hidden="true" data-toggle="tooltip" title="Eliminar Respuesta" style="cursor: pointer" onclick="eliminar(<?php echo $valor3->id_respuesta ?>,<?php echo $_GET['id'] ?>, 1)"></i></a></td>
-                                        </tr>                   
+                                        </tr>              
                                         <?php
-                                    }
-                                    ?>                         
+                                    }                                    
+                                    ?>
+                                
                                 </table>
                                 <!--FIN  TABLA-->                        
                                 <a href="listado_encuestas.php">
-                                    <input  type="button" name="regresar" id="regresar" value="Regresar" class="btn btn-block btn-primary" style="width: 8%"> 
+                                    <input  type="button" name="regresar" id="regresar" value="Regresar" class="btn btn-primary" style="width:8%"> 
                                 </a>
                                 <input type="hidden" id="launchModal" class="btn btn-primary" data-toggle="modal" data-target="#myModal" />
                             </div>
@@ -166,6 +164,7 @@ $consultaG = $conexion->findAll2($query);
                     </div>
                 </div>
             </div>
+            <!-- FIN MODAL-->
         </div>
         <!-- jQuery 2.1.3 -->
         <script src="plugins/jQuery/jQuery-2.1.3.min.js"></script>

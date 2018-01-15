@@ -7,9 +7,6 @@ function conexiones($usuario, $clave) {
     //seleccionar la base de datos para trabajar
     mysqli_select_db($conectar, 'sondeo');
 
-    //sentencia sql para consultar el nombre del usuario
-    //$clave_encriptada = MD5($clave);
-
     $sql = "SELECT * FROM administradores WHERE usuario = '" . $usuario . "' AND  password ='" . $clave . "' ";
     //ejecucion de la sentencia anterior
     $ejecutar_sql = mysqli_query($conectar, $sql);
@@ -38,5 +35,3 @@ function verificar_usuario() {
         return true;
     }
 }
-
-?>

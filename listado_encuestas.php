@@ -16,6 +16,7 @@ if (verificar_usuario()) {
 <html>
     <head>
         <meta charset="UTF-8">
+        <link rel="icon" type="image/png" href="dist/img/favicon.png" />
         <title>Listado Encuestas</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>      
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />       
@@ -31,8 +32,7 @@ if (verificar_usuario()) {
             <!-- INCLUYE CABECERA DONDE INDICA EL NOMBRE DE USUARIO LOGUEADO-->
             <?php include './header.php'; ?>
             <!-- ZONA DEL MENÙ-->
-            <?php include 'menu.php'; ?>
-            <!-- ZONA DEL MENÙ-->
+            <?php include 'menu.php'; ?>           
             <div class="content-wrapper">             
                 <section class="content-header">
                     <h1>
