@@ -37,7 +37,6 @@ for ($k = 0; $k < count($arrayPreguntas); $k++) {
         }
     }
 }
-
 ?>
 
 <!DOCTYPE html>

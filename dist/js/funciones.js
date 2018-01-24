@@ -149,9 +149,7 @@ $(function () {
     var cadena = locacion.toString().split("/");
     if (cadena[cadena.length - 1] !== "listado_encuestas.php") {
         $("td").dblclick(function () {            
-            var OriginalContent = $(this).text();      
-            //console.log(OriginalContent);
-            //console.log($(this).attr('id'));
+            var OriginalContent = $(this).text();
             if ($(this).attr('id').substr(0, $(this).attr('id').length) === "pregunta" || $(this).attr('id').substr(0, 9) === "respuesta" ) {
                 $(this).addClass("cellEditing");
                 $(this).html("<input type='text' value='" + OriginalContent + "' />");
@@ -161,7 +159,7 @@ $(function () {
                 var id_encuesta = $(this).attr('data-idencuesta');         
                 var opc = $(this).attr('data-option');
                 var id_pregunta = $(this).attr('data-id_pregunta');             
-                $(this).children().first().blur(function (e) {
+                $(this).children().first().blur(function (e){
                     var newContent = $(this).val();
                     $(this).parent().text(newContent);
                     $(this).parent().removeClass("cellEditing");
@@ -171,12 +169,11 @@ $(function () {
                         url: 'modelo/editar.php',
                         type: 'post',
                         success: function (response) {
-                            //console.log(response);
                             if(response == 1){
                                 window.location.href = "editarEncuesta.php?id=" + id_encuesta + "&mensaje=editar";
                             }else{
                                 window.location.href = "editarEncuesta.php?id=" + id_encuesta + "&mensaje=errorEditar";
-                            }            
+                            }       
                         }
                     });
                 });
@@ -190,7 +187,6 @@ function eliminar(id, id_encuesta, opc) {
     var campos2 = {'id': id, 'id_encuesta': id_encuesta, 'opc': opc};
 
     $.ajax({
-
         data: campos2,
         url: 'modelo/eliminar.php',
         type: 'post',
@@ -271,8 +267,7 @@ function  editarTitulo(id_encuesta) {
         data: campos,
         url: 'modelo/editarTitulo.php',
         type: 'post',
-        success: function (response) {
-            //console.log(response);
+        success: function (response) {   
             if (response === '1') {
                 window.location.href = "editarEncuesta.php?id=" + id_encuesta + "&mensaje=edtarTitulo";
             } else {

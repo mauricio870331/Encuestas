@@ -62,7 +62,7 @@ $(function () {
                 plotShadow: false
             },
             title: {
-                text: 'Posible Gráfico Estadístico'
+                text: 'Gráfico Estadístico'
             },
             tooltip: {
                 pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'

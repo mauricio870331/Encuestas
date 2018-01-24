@@ -70,7 +70,8 @@ if (verificar_usuario()) {
                                                 <a href="moreInfo.php?id=<?php echo $valor->id_encuesta; ?>&encuesta=<?php echo $valor->titulo; ?>"><i id="moreInfo" data-toggle="tooltip" title="Mas Informacion" class="fa fa-eye" aria-hidden="true"></i></a>&numsp;&numsp;
                                                 <a href="editarEncuesta.php?id=<?php echo $valor->id_encuesta; ?>"><i class="fa fa-pencil" aria-hidden="true" data-toggle="tooltip" title="Editar Encuesta"></i></a>&numsp;&numsp;                       
                                                 <a data-toggle="tooltip" title="Eliminar Encuesta"><i class="fa fa-eraser" aria-hidden="true" style="cursor: pointer" data-toggle="modal" data-target="#myModal" onclick="setId(<?php echo $valor->id_encuesta; ?>)"></i></a>&numsp;&numsp; 
-                                                <a href="visEstadistica.php?id=<?php echo $valor->id_encuesta; ?>"><i class="fa fa-line-chart" aria-hidden="true" data-toggle="tooltip" title="Ver Resultados"></i></a>&numsp;&numsp;     
+                                                <a href="visEstadistica.php?id=<?php echo $valor->id_encuesta; ?>"><i class="fa fa-line-chart" aria-hidden="true" data-toggle="tooltip" title="Ver Resultados"></i></a>&numsp;&numsp;
+                                                <a href="vistaGraficas.php?id=<?php echo $valor->id_encuesta; ?>"><i class="fa fa-pie-chart" aria-hidden="true" data-toggle="tooltip" title="Ver Gráficas"></i></a>&numsp;&numsp;    
                                             </td>
                                         </tr>
                                         <?php
